@@ -91,8 +91,8 @@ function App() {
               }`}
             >
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-xl font-semibold">Transactions</h2>
-                <div className="flex space-x-2">
+                <h2 className="text-xl font-semibold">Transactions:</h2>
+                <div className="flex flex-wrap justify-center items-center gap-2">
                   <button
                     onClick={() => setFilter("all")}
                     className={`px-3 py-1 rounded ${

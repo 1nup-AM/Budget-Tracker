@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { format } from 'date-fns';
+import { useState } from "react";
+import { format } from "date-fns";
 
 const TransactionList = ({ transactions, onDelete, onEdit }) => {
   const [editingId, setEditingId] = useState(null);
   const [editForm, setEditForm] = useState({
-    amount: '',
-    description: '',
-    category: 'Food',
-    type: 'expense'
+    amount: "",
+    description: "",
+    category: "Food",
+    type: "expense",
   });
 
   const handleEditClick = (transaction) => {
@@ -16,7 +16,7 @@ const TransactionList = ({ transactions, onDelete, onEdit }) => {
       amount: transaction.amount.toString(),
       description: transaction.description,
       category: transaction.category,
-      type: transaction.type
+      type: transaction.type,
     });
   };
 
@@ -25,14 +25,14 @@ const TransactionList = ({ transactions, onDelete, onEdit }) => {
       amount: parseFloat(editForm.amount),
       description: editForm.description,
       category: editForm.category,
-      type: editForm.type
+      type: editForm.type,
     });
     setEditingId(null);
   };
 
   const handleEditChange = (e) => {
     const { name, value } = e.target;
-    setEditForm(prev => ({ ...prev, [name]: value }));
+    setEditForm((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
@@ -41,7 +41,7 @@ const TransactionList = ({ transactions, onDelete, onEdit }) => {
         <p className="text-center py-4">No transactions yet</p>
       ) : (
         <ul className="divide-y dark:divide-gray-700">
-          {transactions.map(t => (
+          {transactions.map((t) => (
             <li key={t.id} className="py-4">
               {editingId === t.id ? (
                 <div className="space-y-3">
@@ -99,37 +99,47 @@ const TransactionList = ({ transactions, onDelete, onEdit }) => {
                 <div className="flex justify-between items-center">
                   <div>
                     <div className="font-medium">
-                      {t.description} 
-                      <span className={`ml-2 px-2 py-1 text-xs rounded-full ${
-                        t.type === 'income' 
-                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
-                          : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
-                      }`}>
+                      {t.description}
+                      <span
+                        className={`ml-2 px-2 py-1 text-xs rounded-full ${
+                          t.type === "income"
+                            ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200"
+                            : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200"
+                        }`}
+                      >
                         {t.category}
                       </span>
                     </div>
                     <div className="text-sm text-gray-500 dark:text-gray-400">
-                      {format(new Date(t.date), 'MMM dd, yyyy - h:mm a')}
+                      {format(new Date(t.date), "MMM dd, yyyy - h:mm a")}
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <span className={`font-semibold ${
-                      t.type === 'income' ? 'text-green-500' : 'text-red-500'
-                    }`}>
-                      {t.type === 'income' ? '+' : '-'}${t.amount.toFixed(2)}
-                    </span>
-                    <button
-                      onClick={() => handleEditClick(t)}
-                      className="text-blue-500 hover:text-blue-700 dark:hover:text-blue-400"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => onDelete(t.id)}
-                      className="text-red-500 hover:text-red-700 dark:hover:text-red-400"
-                    >
-                      Delete
-                    </button>
+                  <div className="flex flex-col items-center space-x-2">
+                    <div>
+                      <span
+                        className={`font-semibold ${
+                          t.type === "income"
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }`}
+                      >
+                        {t.type === "income" ? "+" : "-"}${t.amount.toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="space-x-2">
+                      <button
+                        onClick={() => handleEditClick(t)}
+                        className="text-blue-500 hover:text-blue-700 dark:hover:text-blue-400"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => onDelete(t.id)}
+                        className="text-red-500 hover:text-red-700 dark:hover:text-red-400"
+                      >
+                        Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               )}
